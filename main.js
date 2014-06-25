@@ -4,7 +4,7 @@ window.requestAnimFrame = (function(){
           window.webkitRequestAnimationFrame ||
           window.mozRequestAnimationFrame    ||
           function( callback ){
-            window.setTimeout(callback, 1000 / 60);
+            window.setTimeout(callback, 1000 / 50);
           };
 })();
 
@@ -40,32 +40,38 @@ function render(){
 		dirX : Math.random() *10 - 5,
 		dirY : Math.random() *10 - 5
 	};
+
 	imageArray.push(image);
 
 	var image = {
 		x : spawn2.x,
 		y : spawn2.y,
-		dirX : Math.random() *10 - 5,
-		dirY : Math.random() *10 - 5
+		dirX : Math.random() * 10 - 5,
+		dirY : Math.random() * 10 - 5
 	};
 	imageArray.push(image);
 
 	imageArray.forEach(function(image){
 		image.x += image.dirX;
 		image.y  += image.dirY;
-		ctx.drawImage( vinnie , image.x , image.y ,30,30 );
+		ctx.drawImage( vinnie , image.x , image.y , 40 , 40 );
 	});
-	if(imageArray.length > 1000) imageArray.shift();
 
-	if(Math.round(Math.random() *50) == 1){
-		spawn1.x = randomNumber(50, width- 50);
-		spawn1.Y = randomNumber(50, height- 50);
-	}
+    if(Math.round(Math.random() *50) == 1){
+        spawn1.x = randomNumber(50, width- 50);
+        spawn1.y = randomNumber(50, height- 50);
+    }
 
-	if(Math.round(Math.random() *50) == 2){
-		spawn2.x = randomNumber(50, width- 50);
-		spawn2.Y = randomNumber(50, height- 50);
-	}
+    if(Math.round(Math.random() * 50) == 2){
+        spawn2.x = randomNumber(50, width- 50);
+        spawn2.y = randomNumber(50, height- 50);
+        console.log(height);
+    }
+
+	if(imageArray.length > 2000) imageArray.shift();
+	if(imageArray.length > 2000) imageArray.shift();
+
+
 }
 (function animloop(){
   requestAnimFrame(animloop);
