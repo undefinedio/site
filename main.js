@@ -48,8 +48,7 @@ var spawn3 = {
     y : 200
 }
 
-console.log(Math.floor(randomNumber(0,2.9)));
-
+var TO_RADIANS = Math.PI/180;
 function render(){
 
 
@@ -64,7 +63,9 @@ function render(){
             size: 0.1,
             dirX : Math.random() *10 - 5,
             dirY : Math.random() *10 - 8,
-            image : imageLocation[Math.floor(randomNumber(0,2.9))]
+            image : imageLocation[Math.floor(randomNumber(0,2.9))],
+            rotation : 0,
+            rotationSpeed : randomNumber(0,2)
         };
 
         imageArray.unshift(image);
@@ -97,7 +98,19 @@ function render(){
 
         if(image.size < 1 && randomNumber(1,1000 ) > 800) image.size += 0.05;
 
-		ctx.drawImage( image.image , image.x , image.y , 50 * image.size , 60 * image.size );
+        ctx.save();
+
+
+        image.rotation += image.rotationSpeed;
+
+
+        ctx.translate(image.x, image.y);
+
+        ctx.rotate(image.rotation * TO_RADIANS);
+
+        ctx.drawImage( image.image , 0 , 0 , 50 * image.size , 60 * image.size );
+
+        ctx.restore();
 	});
 
     if(Math.round(Math.random() *50) == 1){
