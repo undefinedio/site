@@ -20,12 +20,22 @@ var ctx = canvas.getContext("2d");
 var vinnie = new Image();
 vinnie.src = "vincent.gif";
 
+var koray = new Image();
+koray.src = "koray.gif";
+
+var benni = new Image();
+benni.src = "benni.gif";
+
 var imageArray = [];
+var imageLocation = [];
+
+imageLocation[0] = vinnie;
+imageLocation[1] = koray;
+imageLocation[2] = benni;
 
 var spawn1 = {
 	x : 200,
 	y : 200,
-    image: "vincent.gif"
 }
 
 var spawn2 = {
@@ -38,7 +48,11 @@ var spawn3 = {
     y : 200
 }
 
+console.log(Math.floor(randomNumber(0,2.9)));
+
 function render(){
+
+
 	ctx.clearRect(0, 0, width, height);
 
 
@@ -49,7 +63,8 @@ function render(){
             y : spawn1.y,
             size: 0.1,
             dirX : Math.random() *10 - 5,
-            dirY : Math.random() *10 - 8
+            dirY : Math.random() *10 - 8,
+            image : imageLocation[Math.floor(randomNumber(0,2.9))]
         };
 
         imageArray.unshift(image);
@@ -82,7 +97,7 @@ function render(){
 
         if(image.size < 1 && randomNumber(1,1000 ) > 800) image.size += 0.05;
 
-		ctx.drawImage( vinnie , image.x , image.y , 50 * image.size , 60 * image.size );
+		ctx.drawImage( image.image , image.x , image.y , 50 * image.size , 60 * image.size );
 	});
 
     if(Math.round(Math.random() *50) == 1){
