@@ -26,12 +26,16 @@ koray.src = "koray.gif";
 var benni = new Image();
 benni.src = "benni.gif";
 
+var simon = new Image();
+simon.src = "simon.gif";
+
 var imageArray = [];
 var imageLocation = [];
 
 imageLocation[0] = vinnie;
 imageLocation[1] = koray;
 imageLocation[2] = benni;
+imageLocation[3] = simon;
 
 var spawn1 = {
 	x : 200,
@@ -63,7 +67,7 @@ function render(){
             size: 0.1,
             dirX : Math.random() *10 - 5,
             dirY : Math.random() *10 - 8,
-            image : imageLocation[Math.floor(randomNumber(0,2.9))],
+            image : imageLocation[Math.floor(randomNumber(0,3.9))],
             rotation : 0,
             rotationSpeed : randomNumber(0,2)
         };
@@ -138,6 +142,38 @@ function render(){
   requestAnimFrame(animloop);
   render();
 })();
+
+
+canvas.addEventListener("mousedown", getPosition, false);
+
+function getPosition(event)
+{
+    var x = event.x;
+    var y = event.y;
+
+    x -= canvas.offsetLeft;
+    y -= canvas.offsetTop;
+
+    console.log(x);
+    console.log(y);
+
+    imageArray.forEach(function(image){
+        var width = 50 * image.size;
+        var height = 60 * image.size;
+        if(x > image.x && x < image.x + width ){
+            if(y > image.y && y < image.y + width){
+                console.log(image);
+                if(image.image == simon) window.location = "http://simonpeters.me/";
+                if(image.image == vinnie) window.location = "http://vincentpeters.be";
+                if(image.image == benni) window.location = "http://benni.io/";
+                if(image.image == koray) window.location = "https://twitter.com/koray_sels";
+            }
+        }
+    });
+
+
+
+}
 
 
 function randomNumber(min, max){
